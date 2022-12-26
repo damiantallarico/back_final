@@ -8,6 +8,7 @@ const {
   deleteUser,
   login,
 } = require('../Controller/usersController');
+
 const validations = require('../Middlewares/validations');
 const loginValidations = require('../Middlewares/loginvalidations');
 const fieldValidation = require('../Middlewares/fieldValidations');

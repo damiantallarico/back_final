@@ -1,10 +1,10 @@
-const User = require('../Model/users');
-const bcrypt = require('bcrypt');
+const User = require('../Model/users'); // Se trae el modelo de la DB
+const bcrypt = require('bcrypt'); // Para no guardar la clave como texto plano
 
 const pwd = 'test1234';
 
 const seeder = async () => {
-  const existingUser = await User.findOne();
+  const existingUser = await User.findOne(); // Ver si existe un User
   if (existingUser) return;
   console.log('No user was found, creating one...');
 

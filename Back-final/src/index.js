@@ -1,30 +1,20 @@
-const express = require('express');
-const { json } = require('body-parser');
-const cors = require('cors');
-const routerUsers = require('./Router/routeUsers');
-const seeder = require('./Helpers/seeder')
-const { ConnectionDB } = require('./DataBase/config');
+const express = require('express');       // Server
+const { json } = require('body-parser');  // Parseo de la request recibida
+const cors = require('cors');             // Cors para el browser
+const routerUsers = require('./Router/routeUsers'); // Router
+const seeder = require('./Helpers/seeder')          // Seeder para crear un user por defecto si no hubiera ninguno
+const { ConnectionDB } = require('./DataBase/config'); // Conexión a la DB
 
-const port = process.env.PORT || 3000;
-const app = express();
+const port = process.env.PORT || 4000; // Puerto para el server
+const app = express(); // Instanciar el server
 
-app.use(cors());
-app.use(json());
-app.use(cors());
+app.use(cors()); // Usar los Cors
+app.use(json()); // Usar el parser
 
-// app.get('/', (req, res) => {
-//   res
-//     .type('text/plain')
-//     .send(
-//       'Server OK, use "https://users-rest-node.herokuapp.com/users" to redirect users'
-//     );
-// });
+app.use('/users', routerUsers); // Cargar las rutas al server
 
-app.use('/users', routerUsers);
-
-
-app.listen(port, async () => {
-  console.log(`Server running on http://localhost:${port}`);
-  await ConnectionDB();
-  await seeder();
+app.listen(port, async () => { // Pone en escucha al server
+  console.log(`Server running on http://localhost:${port}`); // Mostrar en donde estña corriendo el server
+  await ConnectionDB(); // Conectar a la DB
+  await seeder(); // Hacer uso del seeder
 });
